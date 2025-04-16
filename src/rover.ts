@@ -71,3 +71,7 @@ export function turnRight(r: Rover): Rover {
       return { ...r, direction: "North" };
   }
 }
+
+export function formatRover(r: Rover): string {
+  return `Rover is at (${r.x}, ${r.y}) facing ${r.direction}`;
+}
