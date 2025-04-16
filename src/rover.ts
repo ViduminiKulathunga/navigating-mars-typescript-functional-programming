@@ -32,3 +32,42 @@ export function moveForward(r: Rover): Rover {
       return { ...r, x: r.x - 1 };
   }
 }
+
+export function moveBackward(r: Rover): Rover {
+  switch (r.direction) {
+    case "North":
+      return { ...r, y: r.y - 1 };
+    case "South":
+      return { ...r, y: r.y + 1 };
+    case "East":
+      return { ...r, x: r.x - 1 };
+    case "West":
+      return { ...r, x: r.x + 1 };
+  }
+}
+
+export function turnLeft(r: Rover): Rover {
+  switch (r.direction) {
+    case "North":
+      return { ...r, direction: "West" };
+    case "West":
+      return { ...r, direction: "South" };
+    case "South":
+      return { ...r, direction: "East" };
+    case "East":
+      return { ...r, direction: "North" };
+  }
+}
+
+export function turnRight(r: Rover): Rover {
+  switch (r.direction) {
+    case "North":
+      return { ...r, direction: "East" };
+    case "East":
+      return { ...r, direction: "South" };
+    case "South":
+      return { ...r, direction: "West" };
+    case "West":
+      return { ...r, direction: "North" };
+  }
+}
