@@ -1,5 +1,6 @@
 import { input } from "@inquirer/prompts";
 import { createRover, Rover, moveForward, formatRover } from "./rover";
+import { convertStringToCommand } from "./converts";
 
 function displayRover(r: Rover): void {
   const format = formatRover(r);
@@ -20,6 +21,7 @@ async function main() {
   displayRover(moveForward(rover));
 
   const userInput = await getInputFromUser(prompt);
+  console.log("User Entered: " + convertStringToCommand(userInput));
   console.log(userInput);
 }
 

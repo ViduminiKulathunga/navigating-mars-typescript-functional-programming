@@ -7,7 +7,8 @@ export type Command =
   | "MoveBackward"
   | "TurnLeft"
   | "TurnRight"
-  | "Quit";
+  | "Quit"
+  | "Unknown";
 
 //Rover = has an X and Y and a Direction
 export type Rover = {
