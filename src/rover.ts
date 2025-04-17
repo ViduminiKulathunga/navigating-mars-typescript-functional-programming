@@ -73,6 +73,10 @@ export function turnRight(r: Rover): Rover {
   }
 }
 
+export function doNothing(r: Rover): Rover {
+  return r;
+}
+
 export function formatRover(r: Rover): string {
   return `Rover is at (${r.x}, ${r.y}) facing ${r.direction}`;
 }
