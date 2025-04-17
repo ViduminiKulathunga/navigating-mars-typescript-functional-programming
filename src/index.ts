@@ -12,25 +12,37 @@ function getInputFromUser(prompt: string): Promise<string> {
   return result;
 }
 
-async function loop(rover: Rover, command: Command) {
-  const prompt =
-    "Choose a Command: Move (F)orward, Move (B)ackward, Turn (L)eft, Turn (R)ight, or (Q)uit\n";
-
-  if (command === "Quit") {
-    return;
-  }
-  console.clear();
-  displayRover(rover);
-  const userInput = await getInputFromUser(prompt);
-  const newCommand = convertStringToCommand(userInput);
-  const action = convertCommandToAction(newCommand);
-  loop(action(rover), newCommand);
+function compose<A, B, C>(f: (a: A) => B, g: (b: B) => C): (a: A) => C {
+  return (input: A) => g(f(input));
 }
 
 async function main() {
-  const rover = createRover();
-  const initialCommand: Command = "Unknown";
-  loop(rover, initialCommand);
+  const prompt =
+    "Choose a Command: Move (F)orward, Move (B)ackward, Turn (L)eft, Turn (R)ight, or (Q)uit\n";
+
+  let rover = createRover();
+  let command: Command = "Unknown";
+
+  while (command != "Quit") {
+    console.clear();
+    displayRover(rover);
+
+    const inputToAction = compose(
+      convertStringToCommand,
+      convertCommandToAction
+    );
+
+    const userInput = await getInputFromUser(prompt);
+    command = convertStringToCommand(userInput);
+
+    const action = inputToAction(userInput);
+    rover = action(rover);
+  }
 }
 
 main();
+
+const square = (a: number) => a * a;
+const negate = (a: number) => -a;
+
+const negatedSquared = compose(square, negate);
